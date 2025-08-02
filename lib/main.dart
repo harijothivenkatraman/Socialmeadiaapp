@@ -6,7 +6,6 @@ import 'screens/home_screen.dart';
 import 'screens/post_details_screen.dart';
 import 'screens/user_profile_screen.dart';
 
-// --- BINDINGS ---
 // InitialBinding to fetch essential data at app start
 class InitialBinding implements Bindings {
   @override

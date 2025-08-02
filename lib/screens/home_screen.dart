@@ -1,5 +1,3 @@
-// lib/screens/home_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../app_data.dart';
@@ -54,35 +52,99 @@ class HomeScreenController extends GetxController {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Create New Post'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: bodyController,
-              decoration: const InputDecoration(labelText: 'Body'),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
-          ElevatedButton(
-            onPressed: () {
-              if (titleController.text.isNotEmpty &&
-                  bodyController.text.isNotEmpty) {
-                _createPost(titleController.text, bodyController.text);
-                Get.back();
-              } else {
-                Get.snackbar('Error', 'Title and body cannot be empty.');
-              }
-            },
-            child: const Text('Create'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        contentPadding: const EdgeInsets.all(16),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'New Post',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Get.back(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+
+              // Text Area with Avatar
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage(
+                      'assets/profile.png',
+                    ), // Replace with your asset
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      controller: bodyController,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintText: "What's happening?",
+                        border: InputBorder.none,
+                      ),
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(height: 24),
+
+              // Title (optional like hashtags or thread title)
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  hintText: 'Add a title (optional)',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Post Button
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2196F3),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (titleController.text.isNotEmpty ||
+                        bodyController.text.isNotEmpty) {
+                      _createPost(titleController.text, bodyController.text);
+                      Get.back();
+                    } else {
+                      Get.snackbar('Error', 'Post content cannot be empty.');
+                    }
+                  },
+                  child: const Text('Post'),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -125,7 +187,9 @@ class HomeScreen extends GetView<HomeScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Social Feed'),
+        title: const Text('THREADS'),
+        backgroundColor: const Color(0xFF2196F3),
+        foregroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -150,6 +214,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 title: Text(
                   post.title,
                   style: const TextStyle(fontWeight: FontWeight.bold),
+                  selectionColor: const Color(0xFF2196F3),
                 ),
                 subtitle: Text(
                   post.body,
@@ -163,7 +228,10 @@ class HomeScreen extends GetView<HomeScreenController> {
         );
       }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF2196F3),
+        foregroundColor: Colors.white,
         onPressed: () => controller._showCreatePostDialog(context),
+        tooltip: 'Create Post',
         child: const Icon(Icons.add),
       ),
     );

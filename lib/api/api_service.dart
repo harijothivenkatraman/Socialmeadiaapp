@@ -71,9 +71,6 @@ class ApiService {
 
   dynamic _handleDioError(DioException dioError) {
     // Log the error for debugging
-    print('DioError: ${dioError.type}');
-    print('Response: ${dioError.response?.data}');
-    print('Status Code: ${dioError.response?.statusCode}');
 
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:

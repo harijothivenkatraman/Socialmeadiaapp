@@ -1,5 +1,3 @@
-// lib/screens/post_details_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../app_data.dart';
@@ -56,7 +54,11 @@ class PostDetailsScreen extends GetView<PostDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Post Details')),
+      appBar: AppBar(
+        title: const Text('Post Details'),
+        backgroundColor: const Color(0xFF2196F3),
+        foregroundColor: Colors.white,
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -80,7 +82,7 @@ class PostDetailsScreen extends GetView<PostDetailsController> {
                   'by ${controller.user?.name ?? 'Unknown User'}',
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: Theme.of(context).primaryColor,
+                    color: const Color(0xFF2196F3),
                     decoration: TextDecoration.underline,
                   ),
                 ),
@@ -123,6 +125,8 @@ class PostDetailsScreen extends GetView<PostDetailsController> {
               ),
               subtitle: Text(comment.body),
               leading: CircleAvatar(
+                backgroundColor: const Color(0xFF2196F3),
+                foregroundColor: Colors.white,
                 child: Text(comment.email[0].toUpperCase()),
               ),
             ),

@@ -1,5 +1,3 @@
-// lib/app_data.dart
-
 import 'models/comment_model.dart';
 import 'models/post_model.dart';
 import 'models/user_model.dart';

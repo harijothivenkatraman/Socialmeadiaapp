@@ -1,5 +1,3 @@
-// lib/models/comment_model.dart
-
 class CommentModel {
   final int postId;
   final int id;
